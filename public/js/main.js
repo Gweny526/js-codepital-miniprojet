@@ -1,115 +1,60 @@
-// crée une function chat 
-// log ('miaule')
-// settimeout 
+import Doctor from './doctor.js'
+import Patient from './patient.js'
+import Chat from './chat.js'
+import Lieux from './lieux.js'
 
-// Patient
-class Patient {
-    constructor(nom, maladie, argent, poche, etatSante) {
-        this.nom = nom
-        this.maladie = maladie
-        this.argent = argent
-        this.poche = poche
-        this.etatSante = etatSante
-    };
-    traitement = (medicament) => {
-        if (argent == medicament) {
-            console.log(`Voilà ${Patient.nom} à reçu son traitement iel est guerri`);
-        }else{
-            console.log(`${Patient.nom} n'a malheureusement pas l'argent pour s'acheter le medicament iel succombe a sa maladie`);
-        }
-    }
-    goTo = (nom) => {
-        this.lieu = nom
-        console.log(`${this.nom} se déplace ver ${nom}`);
-    }
-    takeCare = () => {
+// instance de doctor
+let doctor = new Doctor("Debugger", 0)
+console.log(doctor);
 
-    }
-    paye = (doctor) => {
-        this.argent -= doctor.prix
-    }
-}
+// instance du chat 
+let chat = new Chat('sphinx')
+console.log(chat);
+
+
+// instance de patient
 let patient1 = new Patient("Marcus", "mal indenté", 100, "vide", "malade")
 let patient2 = new Patient("Optimus", "unsave", 200, "vide", "malade")
 let patient3 = new Patient("Sangoku", 404, 80, "vide", "malade")
 let patient4 = new Patient("DarthVader", "azmatique", 110, "vide", "malade")
 let patient5 = new Patient("Semicolon", "syntaxError", 60, "vide", "malade")
+
+let personnes = [patient1, patient2, patient3, patient4, patient5]
 // juste pour être sur que ça fonctionne
-console.log(patient1);
-console.log(patient2);
-console.log(patient3);
-console.log(patient4);
-console.log(patient5);
+console.log(personnes);
 
-// salle d'attente
-let salleDAttente ={
-    nom : `salle d'attente`,
-    espace : [patient1, patient2, patient3, patient4, patient5]
-}
-
-// doctor
-class Doctor {
-    contructor(nom, argent) {
-        this.nom = nom
-        this.argent = argent
-        this.prix = 50
-        this.cabinet = [chat, patient1, patient2, patient3, patient4, patient5]
-
-    }
-    diagnostique = (Patient) => {
-        if (Patient.maladie == `ctrl+maj+f`) {
-            console.log(`lae patient-e ${Patient.nom} à la maladie mal indenté`);
-        } else if (Patient.maladie == `saveOnFocusChange`) {
-            console.log(`lae patient-e ${Patient.nom} à la maladie unsave`);
-        } else if (Patient.maladie == "CheckLinkRelation") {
-            console.log(`lar patient-e ${Patient.nom} à la maladie 404 `)
-        } else if (Patient.maladie == "Ventoline") {
-            console.log(`lae patient-e ${Patient.nom} est azmatique`);
-        } else if (Patient.maladie == `f12+doc`) {
-            console.log(`le dossier du ${Patient.nom} à une syntaxError`);
-        }
-
-    }
-    patientIn = (Patient) => {
-        Patient.nom.forEach(el => {
-            Doctor.cabinet.push(el)
+// déplacer les personnage 
+let goTo = (a, depart, arriver) => {
+    let dep = `${a.nom} est actuelement à ${depart.nom} et se dirige vers ${arriver.nom}`
+    let arr = `${a.nom} est arriver à ${arriver.nom}`
     
-        })
-        console.log(patient1);
-    }
-    patientOut = (Patient) => {
-        cabinet = cabinet.filter(el => el !== nom)
-    }
+    console.log(dep);
+    console.log(arr);
 }
-
-// Doctor.patientIn(patient1)
-
-let doctor = new Doctor("Debugger", 0, "cabinet")
-console.log(doctor);
-
-// pharmacie
-let Pharmacie = {
-    traitement1 : {
-        nom : `ctrl+maj+f`,
-        prix : 60
-    },
-    traitement2 : {
-        nom : `saveOnFocusChange`,
-        prix : 100
-    },
-    traitement3 : {
-        nom : `CheckLinkRelation`,
-        prix : 35
-    },
-    traitement4 : {
-        nom : `Ventoline`,
-        prix : 40
-    },
-    traitement5 :{
-        nom : `f12+doc`,
-        prix : 20
-    }
+// sortir les personnages
+let getOut = (a, sortir) => {
+    // sortir.personnes.splice([0,1])
 }
+// instance de lieux
+let salleDAttente = new Lieux("salle d'attente", []);
+let cabinet = new Lieux ("cabinet", []);
+let pharmacie = new Lieux("pharmacie", []);
+let cimetiere = new Lieux("cimetiere", []);
+let lieux = [salleDAttente, cabinet, pharmacie, cimetiere]
+console.log(lieux);
 
-// Récit
-// console.log(`il y a 5 personnes dans le cabinet`);
+
+
+// début du script 
+// premier patient
+// faire un foreach des patient
+
+personnes.forEach(el => {
+    doctor.patientIn(el)
+    chat.miaul()
+    console.log(doctor.cabinet);
+    doctor.diagnostique(el)
+    doctor.patientOut(el)
+    goTo(el, salleDAttente, pharmacie)
+    getOut(el, pharmacie)
+});
