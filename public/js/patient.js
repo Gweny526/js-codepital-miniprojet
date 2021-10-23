@@ -24,6 +24,7 @@ export default class Patient {
     takeCare = (a) => {
         if(this.argent >= this.traitement[a]){
             console.log("voici ton traitement");
+
         }else{
             console.log("dsl tu n'a pas assez d'argent pour ton traintement");
         }
